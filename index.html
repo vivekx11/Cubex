@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Cube Fusion 2048</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body class="theme-neon" data-screen="loading">
+
+  <!-- ===== LOADING SCREEN ===== -->
+  <div id="screen-loading" class="screen active">
+    <div class="loading-content">
+      <div class="loading-logo">
+        <div class="logo-cube">
+          <div class="cube-face front">2048</div>
+          <div class="cube-face back">CUBE</div>
+          <div class="cube-face left"></div>
+          <div class="cube-face right"></div>
+          <div class="cube-face top"></div>
+          <div class="cube-face bottom"></div>
+        </div>
+      </div>
+      <h1 class="loading-title">CUBE FUSION</h1>
+      <p class="loading-sub">2048</p>
+      <div class="loading-bar-wrap">
+        <div class="loading-bar" id="loadingBar"></div>
+      </div>
+      <p class="loading-tip" id="loadingTip">Initializing quantum grid...</p>
+    </div>
+    <canvas id="bgCanvas" class="bg-canvas"></canvas>
+  </div>
+
+  <!-- ===== MAIN MENU ===== -->
+  <div id="screen-menu" class="screen">
+    <canvas id="menuBgCanvas" class="bg-canvas"></canvas>
+    <div class="menu-content">
+      <div class="menu-logo">
+        <h1 class="game-title">CUBE<span class="accent">FUSION</span></h1>
+        <p class="game-subtitle">2 0 4 8</p>
+      </div>
+      <div class="menu-stats">
+        <div class="stat-card">
+          <span class="stat-label">BEST SCORE</span>
+          <span class="stat-value" id="menuBestScore">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">BEST TILE</span>
+          <span class="stat-value" id="menuBestTile">0</span>
+        </div>
+      </div>
+      <div class="menu-buttons">
+        <button class="btn btn-primary" id="btnPlay">▶ PLAY</button>
+        <button class="btn btn-secondary" id="btnModes">⚡ GAME MODES</button>
+        <button class="btn btn-secondary" id="btnLeaderboard">🏆 LEADERBOARD</button>
+        <button class="btn btn-secondary" id="btnSettings">⚙ SETTINGS</button>
+        <button class="btn btn-ghost" id="btnAI">🤖 AI DEMO</button>
+      </div>
+      <div class="menu-footer">
+        <span>Daily Challenge resets in: <span id="dailyTimer" class="accent">--:--:--</span></span>
+      </div>
+    </div>
+    <div class="floating-cubes" id="floatingCubes"></div>
+  </div>
+
+  <!-- ===== MODE SELECT ===== -->
+  <div id="screen-modes" class="screen">
+    <canvas id="modesBgCanvas" class="bg-canvas"></canvas>
+    <div class="panel-content">
+      <h2 class="panel-title">SELECT MODE</h2>
+      <div class="modes-grid">
+        <div class="mode-card" data-mode="classic">
+          <div class="mode-icon">🎮</div>
+          <h3>Classic</h3>
+          <p>Reach 2048. No time limit. Pure strategy.</p>
+          <div class="mode-badge">STANDARD</div>
+        </div>
+        <div class="mode-card" data-mode="speed">
+          <div class="mode-icon">⚡</div>
+          <h3>Speed Mode</h3>
+          <p>Tiles spawn faster. Think quick!</p>
+          <div class="mode-badge hot">HOT</div>
+        </div>
+        <div class="mode-card" data-mode="timeattack">
+          <div class="mode-icon">⏱</div>
+          <h3>Time Attack</h3>
+          <p>Score as high as possible in 2 minutes.</p>
+          <div class="mode-badge">TIMED</div>
+        </div>
+        <div class="mode-card" data-mode="hardcore">
+          <div class="mode-icon">💀</div>
+          <h3>Hardcore</h3>
+          <p>No undo. No powerups. One shot.</p>
+          <div class="mode-badge danger">HARD</div>
+        </div>
+        <div class="mode-card" data-mode="infinite">
+          <div class="mode-icon">∞</div>
+          <h3>Infinite</h3>
+          <p>Keep going beyond 2048. No limits.</p>
+          <div class="mode-badge">ENDLESS</div>
+        </div>
+        <div class="mode-card" data-mode="daily">
+          <div class="mode-icon">📅</div>
+          <h3>Daily Challenge</h3>
+          <p>Same seed for everyone. One attempt.</p>
+          <div class="mode-badge special">DAILY</div>
+        </div>
+      </div>
+      <button class="btn btn-ghost back-btn" id="btnModesBack">← BACK</button>
+    </div>
+  </div>
+
+  <!-- ===== GAME SCREEN ===== -->
+  <div id="screen-game" class="screen">
+    <canvas id="gameBgCanvas" class="bg-canvas"></canvas>
+    <div class="game-layout">
+      <!-- Header -->
+      <div class="game-header">
+        <div class="game-title-small">CUBE<span class="accent">FUSION</span></div>
+        <div class="score-area">
+          <div class="score-box" id="scoreBox">
+            <span class="score-label">SCORE</span>
+            <span class="score-value" id="scoreDisplay">0</span>
+            <div class="score-add" id="scoreAdd"></div>
+          </div>
+          <div class="score-box">
+            <span class="score-label">BEST</span>
+            <span class="score-value" id="bestDisplay">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub-header: mode info + controls -->
+      <div class="game-subheader">
+        <div class="mode-info">
+          <span class="mode-tag" id="modeTag">CLASSIC</span>
+          <span class="timer-display" id="timerDisplay" style="display:none">⏱ <span id="timerValue">2:00</span></span>
+          <span class="combo-display" id="comboDisplay" style="display:none">🔥 x<span id="comboValue">1</span></span>
+        </div>
+        <div class="game-controls">
+          <button class="ctrl-btn" id="btnUndo" title="Undo">↩</button>
+          <button class="ctrl-btn" id="btnPause" title="Pause">⏸</button>
+          <button class="ctrl-btn" id="btnRestart" title="Restart">↺</button>
+        </div>
+      </div>
+
+      <!-- Powerups bar -->
+      <div class="powerups-bar" id="powerupsBar">
+        <button class="powerup-btn" data-power="undo" title="Undo Move">
+          <span class="pu-icon">↩</span><span class="pu-label">Undo</span><span class="pu-count" id="puUndo">3</span>
+        </button>
+        <button class="powerup-btn" data-power="destroy" title="Destroy Tile">
+          <span class="pu-icon">💥</span><span class="pu-label">Destroy</span><span class="pu-count" id="puDestroy">2</span>
+        </button>
+        <button class="powerup-btn" data-power="shuffle" title="Shuffle Board">
+          <span class="pu-icon">🔀</span><span class="pu-label">Shuffle</span><span class="pu-count" id="puShuffle">1</span>
+        </button>
+        <button class="powerup-btn" data-power="double" title="Double Score">
+          <span class="pu-icon">×2</span><span class="pu-label">Double</span><span class="pu-count" id="puDouble">1</span>
+        </button>
+        <button class="powerup-btn" data-power="freeze" title="Freeze Time" id="puFreezeBtn">
+          <span class="pu-icon">❄</span><span class="pu-label">Freeze</span><span class="pu-count" id="puFreeze">1</span>
+        </button>
+      </div>
+
+      <!-- Grid -->
+      <div class="grid-container">
+        <div class="grid-bg" id="gridBg"></div>
+        <div class="grid-tiles" id="gridTiles"></div>
+        <div class="particle-layer" id="particleLayer"></div>
+      </div>
+
+      <!-- Stats bar -->
+      <div class="stats-bar">
+        <div class="stat-item"><span class="stat-l">MOVES</span><span class="stat-v" id="movesDisplay">0</span></div>
+        <div class="stat-item"><span class="stat-l">HIGHEST</span><span class="stat-v" id="highestDisplay">0</span></div>
+        <div class="stat-item"><span class="stat-l">MERGES</span><span class="stat-v" id="mergesDisplay">0</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAUSE MENU ===== -->
+  <div id="screen-pause" class="screen overlay-screen">
+    <div class="modal-box">
+      <h2 class="modal-title">⏸ PAUSED</h2>
+      <div class="pause-stats">
+        <div class="ps-row"><span>Score</span><span id="pauseScore">0</span></div>
+        <div class="ps-row"><span>Moves</span><span id="pauseMoves">0</span></div>
+        <div class="ps-row"><span>Mode</span><span id="pauseMode">Classic</span></div>
+      </div>
+      <div class="modal-buttons">
+        <button class="btn btn-primary" id="btnResume">▶ RESUME</button>
+        <button class="btn btn-secondary" id="btnPauseRestart">↺ RESTART</button>
+        <button class="btn btn-ghost" id="btnPauseMenu">⌂ MAIN MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GAME OVER MODAL ===== -->
+  <div id="screen-gameover" class="screen overlay-screen">
+    <div class="modal-box gameover-box">
+      <div class="modal-icon">💀</div>
+      <h2 class="modal-title">GAME OVER</h2>
+      <p class="modal-sub">No more moves available</p>
+      <div class="result-stats">
+        <div class="rs-card"><span class="rs-label">SCORE</span><span class="rs-value" id="goScore">0</span></div>
+        <div class="rs-card"><span class="rs-label">BEST</span><span class="rs-value" id="goBest">0</span></div>
+        <div class="rs-card"><span class="rs-label">HIGHEST TILE</span><span class="rs-value" id="goTile">0</span></div>
+        <div class="rs-card"><span class="rs-label">MOVES</span><span class="rs-value" id="goMoves">0</span></div>
+      </div>
+      <div class="achievements-row" id="goAchievements"></div>
+      <div class="modal-buttons">
+        <button class="btn btn-primary" id="btnGoRestart">↺ PLAY AGAIN</button>
+        <button class="btn btn-ghost" id="btnGoMenu">⌂ MAIN MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VICTORY MODAL ===== -->
+  <div id="screen-victory" class="screen overlay-screen">
+    <div class="modal-box victory-box">
+      <div class="modal-icon victory-icon">🏆</div>
+      <h2 class="modal-title victory-title">YOU WIN!</h2>
+      <p class="modal-sub">You reached <span class="accent" id="victoryTile">2048</span>!</p>
+      <div class="result-stats">
+        <div class="rs-card"><span class="rs-label">SCORE</span><span class="rs-value" id="winScore">0</span></div>
+        <div class="rs-card"><span class="rs-label">MOVES</span><span class="rs-value" id="winMoves">0</span></div>
+      </div>
+      <div class="modal-buttons">
+        <button class="btn btn-primary" id="btnWinContinue">▶ KEEP GOING</button>
+        <button class="btn btn-secondary" id="btnWinRestart">↺ NEW GAME</button>
+        <button class="btn btn-ghost" id="btnWinMenu">⌂ MAIN MENU</button>
+      </div>
+    </div>
+    <div id="confettiContainer"></div>
+  </div>
+
+  <!-- ===== LEADERBOARD ===== -->
+  <div id="screen-leaderboard" class="screen">
+    <canvas id="lbBgCanvas" class="bg-canvas"></canvas>
+    <div class="panel-content">
+      <h2 class="panel-title">🏆 LEADERBOARD</h2>
+      <div class="lb-tabs">
+        <button class="lb-tab active" data-tab="scores">HIGH SCORES</button>
+        <button class="lb-tab" data-tab="tiles">BEST TILES</button>
+        <button class="lb-tab" data-tab="modes">BY MODE</button>
+      </div>
+      <div class="lb-content" id="lbContent"></div>
+      <button class="btn btn-ghost back-btn" id="btnLbBack">← BACK</button>
+    </div>
+  </div>
+
+  <!-- ===== SETTINGS ===== -->
+  <div id="screen-settings" class="screen">
+    <canvas id="settingsBgCanvas" class="bg-canvas"></canvas>
+    <div class="panel-content">
+      <h2 class="panel-title">⚙ SETTINGS</h2>
+      <div class="settings-sections">
+        <!-- Theme -->
+        <div class="settings-section">
+          <h3 class="section-title">🎨 THEME</h3>
+          <div class="theme-grid">
+            <div class="theme-swatch active" data-theme="neon" style="--c1:#0ff;--c2:#f0f">Neon Cyberpunk</div>
+            <div class="theme-swatch" data-theme="galaxy" style="--c1:#a78bfa;--c2:#60a5fa">Galaxy Space</div>
+            <div class="theme-swatch" data-theme="minimal" style="--c1:#e2e8f0;--c2:#94a3b8">Minimal Dark</div>
+            <div class="theme-swatch" data-theme="hacker" style="--c1:#00ff41;--c2:#00cc33">Hacker Green</div>
+            <div class="theme-swatch" data-theme="ice" style="--c1:#7dd3fc;--c2:#bae6fd">Ice Blue</div>
+            <div class="theme-swatch" data-theme="lava" style="--c1:#f97316;--c2:#ef4444">Lava Red</div>
+          </div>
+        </div>
+        <!-- Sound -->
+        <div class="settings-section">
+          <h3 class="section-title">🔊 SOUND</h3>
+          <div class="settings-row">
+            <span>Sound Effects</span>
+            <label class="toggle"><input type="checkbox" id="sfxToggle" checked /><span class="slider"></span></label>
+          </div>
+          <div class="settings-row">
+            <span>Music</span>
+            <label class="toggle"><input type="checkbox" id="musicToggle" /><span class="slider"></span></label>
+          </div>
+          <div class="settings-row">
+            <span>Volume</span>
+            <input type="range" id="volumeSlider" min="0" max="100" value="70" class="range-slider" />
+          </div>
+        </div>
+        <!-- Gameplay -->
+        <div class="settings-section">
+          <h3 class="section-title">🎮 GAMEPLAY</h3>
+          <div class="settings-row">
+            <span>Show Animations</span>
+            <label class="toggle"><input type="checkbox" id="animToggle" checked /><span class="slider"></span></label>
+          </div>
+          <div class="settings-row">
+            <span>Particles</span>
+            <label class="toggle"><input type="checkbox" id="particleToggle" checked /><span class="slider"></span></label>
+          </div>
+          <div class="settings-row">
+            <span>Fullscreen</span>
+            <button class="btn btn-ghost small" id="btnFullscreen">Toggle</button>
+          </div>
+        </div>
+        <!-- Data -->
+        <div class="settings-section">
+          <h3 class="section-title">💾 DATA</h3>
+          <div class="settings-row">
+            <span>Reset All Scores</span>
+            <button class="btn btn-danger small" id="btnResetScores">RESET</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-ghost back-btn" id="btnSettingsBack">← BACK</button>
+    </div>
+  </div>
+
+  <!-- ===== ACHIEVEMENTS TOAST ===== -->
+  <div id="achievementToast" class="achievement-toast"></div>
+
+  <!-- ===== DESTROY MODE OVERLAY ===== -->
+  <div id="destroyOverlay" class="destroy-overlay" style="display:none">
+    <p>TAP A TILE TO DESTROY IT</p>
+    <button class="btn btn-ghost small" id="btnCancelDestroy">CANCEL</button>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
