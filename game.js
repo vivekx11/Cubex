@@ -424,9 +424,15 @@ function triggerGameOver() {
   const achRow = document.getElementById('goAchievements');
   achRow.innerHTML = '';
   state.achievements.forEach(a => {
+    const ach = ACHIEVEMENTS[a];
+    if (!ach) return;
     const b = document.createElement('div');
     b.className = 'achievement-badge';
-    b.textContent = ACHIEVEMENTS[a]?.icon + ' ' + ACHIEVEMENTS[a]?.name || a;
+    if (ach.svgPath) {
+      b.innerHTML = `<svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ach.svgPath}</svg><span>${ach.name}</span>`;
+    } else {
+      b.innerHTML = `<span class="badge-num">${ach.icon}</span><span>${ach.name}</span>`;
+    }
     achRow.appendChild(b);
   });
 
@@ -529,7 +535,7 @@ function doDouble() {
   state.doubleScore = true;
   state.powerups.double--;
   updatePowerupUI();
-  showAchievementToast('×2 Score Active for next 5 moves!');
+    showAchievementToast('x2 Score Active for next 30 seconds!');
   let count = 0;
   const orig = processMove.bind({});
   const wrap = (dir) => {
@@ -546,7 +552,7 @@ function doFreeze() {
   state.frozen = true;
   state.powerups.freeze--;
   updatePowerupUI();
-  showAchievementToast('❄ Time Frozen for 10 seconds!');
+  showAchievementToast('Time Frozen for 10 seconds!');
   setTimeout(() => { state.frozen = false; }, 10000);
 }
 
@@ -563,18 +569,18 @@ function destroyTile(r, c) {
 
 /* ── Achievements ── */
 const ACHIEVEMENTS = {
-  first_merge:  { name: 'First Merge',   icon: '⚡', check: s => s.merges >= 1 },
-  score_1000:   { name: 'Score 1K',      icon: '💯', check: s => s.score >= 1000 },
-  score_10000:  { name: 'Score 10K',     icon: '🔥', check: s => s.score >= 10000 },
-  score_50000:  { name: 'Score 50K',     icon: '💎', check: s => s.score >= 50000 },
-  tile_128:     { name: 'Tile 128',      icon: '🌟', check: s => s.highest >= 128 },
-  tile_512:     { name: 'Tile 512',      icon: '⭐', check: s => s.highest >= 512 },
-  tile_1024:    { name: 'Tile 1024',     icon: '🏅', check: s => s.highest >= 1024 },
-  tile_2048:    { name: 'Tile 2048',     icon: '🏆', check: s => s.highest >= 2048 },
-  tile_4096:    { name: 'Tile 4096',     icon: '👑', check: s => s.highest >= 4096 },
-  moves_100:    { name: '100 Moves',     icon: '🎯', check: s => s.moves >= 100 },
-  combo_5:      { name: 'Combo x5',      icon: '🔥', check: s => s.combo >= 5 },
-  speed_win:    { name: 'Speed Demon',   icon: '⚡', check: s => s.mode === 'speed' && s.highest >= 512 },
+  first_merge:  { name: 'First Merge',   icon: 'NEW', svgPath: '<path d="M13 2L3 14h9l-1 8 10-12h-9z"/>',                                                                    check: s => s.merges >= 1 },
+  score_1000:   { name: 'Score 1K',      icon: '1K',  svgPath: null,                                                                                                         check: s => s.score >= 1000 },
+  score_10000:  { name: 'Score 10K',     icon: '10K', svgPath: null,                                                                                                         check: s => s.score >= 10000 },
+  score_50000:  { name: 'Score 50K',     icon: '50K', svgPath: null,                                                                                                         check: s => s.score >= 50000 },
+  tile_128:     { name: 'Tile 128',      icon: '128', svgPath: null,                                                                                                         check: s => s.highest >= 128 },
+  tile_512:     { name: 'Tile 512',      icon: '512', svgPath: null,                                                                                                         check: s => s.highest >= 512 },
+  tile_1024:    { name: 'Tile 1024',     icon: '1K',  svgPath: null,                                                                                                         check: s => s.highest >= 1024 },
+  tile_2048:    { name: 'Tile 2048',     icon: '2K',  svgPath: '<rect x="9" y="2" width="6" height="20" rx="1"/><rect x="2" y="8" width="6" height="14" rx="1"/><rect x="16" y="5" width="6" height="17" rx="1"/>',  check: s => s.highest >= 2048 },
+  tile_4096:    { name: 'Tile 4096',     icon: '4K',  svgPath: '<polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>',  check: s => s.highest >= 4096 },
+  moves_100:    { name: '100 Moves',     icon: '100', svgPath: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',  check: s => s.moves >= 100 },
+  combo_5:      { name: 'Combo x5',      icon: 'x5',  svgPath: '<path d="M13 2L3 14h9l-1 8 10-12h-9z"/>',                                                                   check: s => s.combo >= 5 },
+  speed_win:    { name: 'Speed Demon',   icon: 'SPD', svgPath: '<path d="M13 2L3 14h9l-1 8 10-12h-9z"/>',                                                                   check: s => s.mode === 'speed' && s.highest >= 512 },
 };
 
 function checkAchievements() {
@@ -582,7 +588,7 @@ function checkAchievements() {
     if (!state.achievements.has(key) && ach.check(state)) {
       state.achievements.add(key);
       saveStorage();
-      showAchievementToast(ach.icon + ' Achievement: ' + ach.name);
+      showAchievementToast('Achievement Unlocked: ' + ach.name);
     }
   });
 }
@@ -826,9 +832,15 @@ function renderLeaderboard(tab = 'scores') {
     const div = document.createElement('div');
     div.className = 'lb-entry';
     const rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
-    const rankText = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i + 1}`;
+    const rankSvg = i === 0
+      ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M8 14l-2 7h12l-2-7"/><path d="M10 8h4M12 6v4"/></svg>`
+      : i === 1
+      ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M8 14l-2 7h12l-2-7"/></svg>`
+      : i === 2
+      ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="M8 15l-2 6h12l-2-6"/></svg>`
+      : `<span>#${i + 1}</span>`;
     div.innerHTML = `
-      <div class="lb-rank ${rankClass}">${rankText}</div>
+      <div class="lb-rank ${rankClass}">${rankSvg}</div>
       <div class="lb-info">
         <div class="lb-score">${e.score.toLocaleString()}</div>
         <div class="lb-meta">${e.mode.toUpperCase()} · ${e.moves} moves · ${e.date}</div>
@@ -965,7 +977,7 @@ function setupEvents() {
   document.getElementById('btnAI').addEventListener('click', () => {
     startGame('classic');
     state.aiRunning = true;
-    showAchievementToast('🤖 AI Autoplay Active');
+    showAchievementToast('AI Autoplay Active');
     setTimeout(aiMove, 500);
   });
 

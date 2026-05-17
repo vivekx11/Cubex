@@ -52,11 +52,21 @@
         </div>
       </div>
       <div class="menu-buttons">
-        <button class="btn btn-primary" id="btnPlay">▶ PLAY</button>
-        <button class="btn btn-secondary" id="btnModes">⚡ GAME MODES</button>
-        <button class="btn btn-secondary" id="btnLeaderboard">🏆 LEADERBOARD</button>
-        <button class="btn btn-secondary" id="btnSettings">⚙ SETTINGS</button>
-        <button class="btn btn-ghost" id="btnAI">🤖 AI DEMO</button>
+        <button class="btn btn-primary" id="btnPlay">
+          <svg class="btn-icon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg> PLAY
+        </button>
+        <button class="btn btn-secondary" id="btnModes">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg> GAME MODES
+        </button>
+        <button class="btn btn-secondary" id="btnLeaderboard">
+          <svg class="btn-icon" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="20" rx="1"/><rect x="2" y="8" width="6" height="14" rx="1"/><rect x="16" y="5" width="6" height="17" rx="1"/></svg> LEADERBOARD
+        </button>
+        <button class="btn btn-secondary" id="btnSettings">
+          <svg class="btn-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> SETTINGS
+        </button>
+        <button class="btn btn-ghost" id="btnAI">
+          <svg class="btn-icon" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="3"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/><circle cx="9" cy="14" r="1.5"/><circle cx="15" cy="14" r="1.5"/><path d="M9 18h6"/></svg> AI DEMO
+        </button>
       </div>
       <div class="menu-footer">
         <span>Daily Challenge resets in: <span id="dailyTimer" class="accent">--:--:--</span></span>
@@ -72,43 +82,57 @@
       <h2 class="panel-title">SELECT MODE</h2>
       <div class="modes-grid">
         <div class="mode-card" data-mode="classic">
-          <div class="mode-icon">🎮</div>
+          <div class="mode-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M12 2v4M8 2v2M16 2v2"/><circle cx="8" cy="13" r="1.5"/><path d="M14 11h4M16 9v4"/></svg>
+          </div>
           <h3>Classic</h3>
           <p>Reach 2048. No time limit. Pure strategy.</p>
           <div class="mode-badge">STANDARD</div>
         </div>
         <div class="mode-card" data-mode="speed">
-          <div class="mode-icon">⚡</div>
+          <div class="mode-icon">
+            <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>
+          </div>
           <h3>Speed Mode</h3>
           <p>Tiles spawn faster. Think quick!</p>
           <div class="mode-badge hot">HOT</div>
         </div>
         <div class="mode-card" data-mode="timeattack">
-          <div class="mode-icon">⏱</div>
+          <div class="mode-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="9"/><path d="M12 8v5l3 3"/><path d="M9 2h6M12 2v2"/></svg>
+          </div>
           <h3>Time Attack</h3>
           <p>Score as high as possible in 2 minutes.</p>
           <div class="mode-badge">TIMED</div>
         </div>
         <div class="mode-card" data-mode="hardcore">
-          <div class="mode-icon">💀</div>
+          <div class="mode-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+          </div>
           <h3>Hardcore</h3>
           <p>No undo. No powerups. One shot.</p>
           <div class="mode-badge danger">HARD</div>
         </div>
         <div class="mode-card" data-mode="infinite">
-          <div class="mode-icon">∞</div>
+          <div class="mode-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 12c-2-2.5-4-4-6-4a4 4 0 0 0 0 8c2 0 4-1.5 6-4z"/><path d="M12 12c2 2.5 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.5-6 4z"/></svg>
+          </div>
           <h3>Infinite</h3>
           <p>Keep going beyond 2048. No limits.</p>
           <div class="mode-badge">ENDLESS</div>
         </div>
         <div class="mode-card" data-mode="daily">
-          <div class="mode-icon">📅</div>
+          <div class="mode-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><rect x="8" y="14" width="3" height="3" rx="0.5"/></svg>
+          </div>
           <h3>Daily Challenge</h3>
           <p>Same seed for everyone. One attempt.</p>
           <div class="mode-badge special">DAILY</div>
         </div>
       </div>
-      <button class="btn btn-ghost back-btn" id="btnModesBack">← BACK</button>
+      <button class="btn btn-ghost back-btn" id="btnModesBack">
+        <svg class="btn-icon" viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg> BACK
+      </button>
     </div>
   </div>
 
@@ -136,32 +160,52 @@
       <div class="game-subheader">
         <div class="mode-info">
           <span class="mode-tag" id="modeTag">CLASSIC</span>
-          <span class="timer-display" id="timerDisplay" style="display:none">⏱ <span id="timerValue">2:00</span></span>
-          <span class="combo-display" id="comboDisplay" style="display:none">🔥 x<span id="comboValue">1</span></span>
+          <span class="timer-display" id="timerDisplay" style="display:none">
+            <svg class="inline-icon" viewBox="0 0 24 24"><circle cx="12" cy="13" r="9"/><path d="M12 8v5l3 3"/><path d="M9 2h6"/></svg>
+            <span id="timerValue">2:00</span>
+          </span>
+          <span class="combo-display" id="comboDisplay" style="display:none">
+            <svg class="inline-icon" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>
+            x<span id="comboValue">1</span>
+          </span>
         </div>
         <div class="game-controls">
-          <button class="ctrl-btn" id="btnUndo" title="Undo">↩</button>
-          <button class="ctrl-btn" id="btnPause" title="Pause">⏸</button>
-          <button class="ctrl-btn" id="btnRestart" title="Restart">↺</button>
+          <button class="ctrl-btn" id="btnUndo" title="Undo">
+            <svg viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M3 13A9 9 0 1 0 6 6.7L3 13"/></svg>
+          </button>
+          <button class="ctrl-btn" id="btnPause" title="Pause">
+            <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+          </button>
+          <button class="ctrl-btn" id="btnRestart" title="Restart">
+            <svg viewBox="0 0 24 24"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-4.5L1 10"/></svg>
+          </button>
         </div>
       </div>
 
       <!-- Powerups bar -->
       <div class="powerups-bar" id="powerupsBar">
         <button class="powerup-btn" data-power="undo" title="Undo Move">
-          <span class="pu-icon">↩</span><span class="pu-label">Undo</span><span class="pu-count" id="puUndo">3</span>
+          <span class="pu-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M3 13A9 9 0 1 0 6 6.7L3 13"/></svg>
+          </span><span class="pu-label">Undo</span><span class="pu-count" id="puUndo">3</span>
         </button>
         <button class="powerup-btn" data-power="destroy" title="Destroy Tile">
-          <span class="pu-icon">💥</span><span class="pu-label">Destroy</span><span class="pu-count" id="puDestroy">2</span>
+          <span class="pu-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          </span><span class="pu-label">Destroy</span><span class="pu-count" id="puDestroy">2</span>
         </button>
         <button class="powerup-btn" data-power="shuffle" title="Shuffle Board">
-          <span class="pu-icon">🔀</span><span class="pu-label">Shuffle</span><span class="pu-count" id="puShuffle">1</span>
+          <span class="pu-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+          </span><span class="pu-label">Shuffle</span><span class="pu-count" id="puShuffle">1</span>
         </button>
         <button class="powerup-btn" data-power="double" title="Double Score">
-          <span class="pu-icon">×2</span><span class="pu-label">Double</span><span class="pu-count" id="puDouble">1</span>
+          <span class="pu-icon pu-text">×2</span><span class="pu-label">Double</span><span class="pu-count" id="puDouble">1</span>
         </button>
         <button class="powerup-btn" data-power="freeze" title="Freeze Time" id="puFreezeBtn">
-          <span class="pu-icon">❄</span><span class="pu-label">Freeze</span><span class="pu-count" id="puFreeze">1</span>
+          <span class="pu-icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 7l-5-5-5 5M17 17l-5 5-5-5M2 12l5-2-5-2M22 12l-5 2 5 2"/></svg>
+          </span><span class="pu-label">Freeze</span><span class="pu-count" id="puFreeze">1</span>
         </button>
       </div>
 
@@ -184,16 +228,25 @@
   <!-- ===== PAUSE MENU ===== -->
   <div id="screen-pause" class="screen overlay-screen">
     <div class="modal-box">
-      <h2 class="modal-title">⏸ PAUSED</h2>
+      <div class="modal-icon-svg">
+        <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+      </div>
+      <h2 class="modal-title">PAUSED</h2>
       <div class="pause-stats">
         <div class="ps-row"><span>Score</span><span id="pauseScore">0</span></div>
         <div class="ps-row"><span>Moves</span><span id="pauseMoves">0</span></div>
         <div class="ps-row"><span>Mode</span><span id="pauseMode">Classic</span></div>
       </div>
       <div class="modal-buttons">
-        <button class="btn btn-primary" id="btnResume">▶ RESUME</button>
-        <button class="btn btn-secondary" id="btnPauseRestart">↺ RESTART</button>
-        <button class="btn btn-ghost" id="btnPauseMenu">⌂ MAIN MENU</button>
+        <button class="btn btn-primary" id="btnResume">
+          <svg class="btn-icon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg> RESUME
+        </button>
+        <button class="btn btn-secondary" id="btnPauseRestart">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-4.5L1 10"/></svg> RESTART
+        </button>
+        <button class="btn btn-ghost" id="btnPauseMenu">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg> MAIN MENU
+        </button>
       </div>
     </div>
   </div>
@@ -201,7 +254,9 @@
   <!-- ===== GAME OVER MODAL ===== -->
   <div id="screen-gameover" class="screen overlay-screen">
     <div class="modal-box gameover-box">
-      <div class="modal-icon">💀</div>
+      <div class="modal-icon">
+        <svg class="modal-svg gameover-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+      </div>
       <h2 class="modal-title">GAME OVER</h2>
       <p class="modal-sub">No more moves available</p>
       <div class="result-stats">
@@ -212,8 +267,12 @@
       </div>
       <div class="achievements-row" id="goAchievements"></div>
       <div class="modal-buttons">
-        <button class="btn btn-primary" id="btnGoRestart">↺ PLAY AGAIN</button>
-        <button class="btn btn-ghost" id="btnGoMenu">⌂ MAIN MENU</button>
+        <button class="btn btn-primary" id="btnGoRestart">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-4.5L1 10"/></svg> PLAY AGAIN
+        </button>
+        <button class="btn btn-ghost" id="btnGoMenu">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg> MAIN MENU
+        </button>
       </div>
     </div>
   </div>
@@ -221,7 +280,9 @@
   <!-- ===== VICTORY MODAL ===== -->
   <div id="screen-victory" class="screen overlay-screen">
     <div class="modal-box victory-box">
-      <div class="modal-icon victory-icon">🏆</div>
+      <div class="modal-icon victory-icon">
+        <svg class="modal-svg victory-svg" viewBox="0 0 24 24"><path d="M6 9H2l3 9h14l3-9h-4"/><path d="M6 9V4h12v5"/><path d="M9 21h6M12 17v4"/><path d="M6 9c0 3.3 2.7 6 6 6s6-2.7 6-6"/></svg>
+      </div>
       <h2 class="modal-title victory-title">YOU WIN!</h2>
       <p class="modal-sub">You reached <span class="accent" id="victoryTile">2048</span>!</p>
       <div class="result-stats">
@@ -229,9 +290,15 @@
         <div class="rs-card"><span class="rs-label">MOVES</span><span class="rs-value" id="winMoves">0</span></div>
       </div>
       <div class="modal-buttons">
-        <button class="btn btn-primary" id="btnWinContinue">▶ KEEP GOING</button>
-        <button class="btn btn-secondary" id="btnWinRestart">↺ NEW GAME</button>
-        <button class="btn btn-ghost" id="btnWinMenu">⌂ MAIN MENU</button>
+        <button class="btn btn-primary" id="btnWinContinue">
+          <svg class="btn-icon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg> KEEP GOING
+        </button>
+        <button class="btn btn-secondary" id="btnWinRestart">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-4.5L1 10"/></svg> NEW GAME
+        </button>
+        <button class="btn btn-ghost" id="btnWinMenu">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg> MAIN MENU
+        </button>
       </div>
     </div>
     <div id="confettiContainer"></div>
@@ -241,14 +308,19 @@
   <div id="screen-leaderboard" class="screen">
     <canvas id="lbBgCanvas" class="bg-canvas"></canvas>
     <div class="panel-content">
-      <h2 class="panel-title">🏆 LEADERBOARD</h2>
+      <h2 class="panel-title">
+        <svg class="title-icon" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="20" rx="1"/><rect x="2" y="8" width="6" height="14" rx="1"/><rect x="16" y="5" width="6" height="17" rx="1"/></svg>
+        LEADERBOARD
+      </h2>
       <div class="lb-tabs">
         <button class="lb-tab active" data-tab="scores">HIGH SCORES</button>
         <button class="lb-tab" data-tab="tiles">BEST TILES</button>
         <button class="lb-tab" data-tab="modes">BY MODE</button>
       </div>
       <div class="lb-content" id="lbContent"></div>
-      <button class="btn btn-ghost back-btn" id="btnLbBack">← BACK</button>
+      <button class="btn btn-ghost back-btn" id="btnLbBack">
+        <svg class="btn-icon" viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg> BACK
+      </button>
     </div>
   </div>
 
@@ -256,11 +328,17 @@
   <div id="screen-settings" class="screen">
     <canvas id="settingsBgCanvas" class="bg-canvas"></canvas>
     <div class="panel-content">
-      <h2 class="panel-title">⚙ SETTINGS</h2>
+      <h2 class="panel-title">
+        <svg class="title-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        SETTINGS
+      </h2>
       <div class="settings-sections">
         <!-- Theme -->
         <div class="settings-section">
-          <h3 class="section-title">🎨 THEME</h3>
+          <h3 class="section-title">
+            <svg class="section-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            THEME
+          </h3>
           <div class="theme-grid">
             <div class="theme-swatch active" data-theme="neon" style="--c1:#0ff;--c2:#f0f">Neon Cyberpunk</div>
             <div class="theme-swatch" data-theme="galaxy" style="--c1:#a78bfa;--c2:#60a5fa">Galaxy Space</div>
@@ -272,7 +350,10 @@
         </div>
         <!-- Sound -->
         <div class="settings-section">
-          <h3 class="section-title">🔊 SOUND</h3>
+          <h3 class="section-title">
+            <svg class="section-icon" viewBox="0 0 24 24"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19 11,5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            SOUND
+          </h3>
           <div class="settings-row">
             <span>Sound Effects</span>
             <label class="toggle"><input type="checkbox" id="sfxToggle" checked /><span class="slider"></span></label>
@@ -288,7 +369,10 @@
         </div>
         <!-- Gameplay -->
         <div class="settings-section">
-          <h3 class="section-title">🎮 GAMEPLAY</h3>
+          <h3 class="section-title">
+            <svg class="section-icon" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M12 2v4M8 2v2M16 2v2"/><circle cx="8" cy="13" r="1.5"/><path d="M14 11h4M16 9v4"/></svg>
+            GAMEPLAY
+          </h3>
           <div class="settings-row">
             <span>Show Animations</span>
             <label class="toggle"><input type="checkbox" id="animToggle" checked /><span class="slider"></span></label>
@@ -304,14 +388,19 @@
         </div>
         <!-- Data -->
         <div class="settings-section">
-          <h3 class="section-title">💾 DATA</h3>
+          <h3 class="section-title">
+            <svg class="section-icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/><polyline points="7,3 7,8 15,8"/></svg>
+            DATA
+          </h3>
           <div class="settings-row">
             <span>Reset All Scores</span>
             <button class="btn btn-danger small" id="btnResetScores">RESET</button>
           </div>
         </div>
       </div>
-      <button class="btn btn-ghost back-btn" id="btnSettingsBack">← BACK</button>
+      <button class="btn btn-ghost back-btn" id="btnSettingsBack">
+        <svg class="btn-icon" viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg> BACK
+      </button>
     </div>
   </div>
 
